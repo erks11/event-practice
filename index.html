@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>君とアイナNight!</title>
+  </head>
+  <body>
+    <style>
+      p {
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+        background-image: url("../img/background.png");
+      }
+      img {
+        width: 530px;
+        height: 700px;
+      }
+      img.jump {
+        transform: translateY(30px);
+        transition: transform 0.5s linear 2s;
+      }
+      #shiki {
+        position: absolute;
+        left: 0px;
+      }
+      #ryu {
+        position: absolute;
+        right: 100px;
+      }
+    </style>
+    <p>
+      <img
+        id="shiki"
+        src="../img/shiki.png"
+        style="transform: translateX(-700px)"
+      />
+      <img id="ryu" src="../img/ryu.png" style="transform: translateX(700px)" />
+
+      <button id="apper">ぼたん</button>
+    </p>
+
+    <script>
+      const apperButton = document.querySelector("#apper");
+      const ryu = document.querySelector("#ryu");
+      const shiki = document.querySelector("#shiki");
+
+      // buttonを押したらイケメンを登場させる
+      apperButton.addEventListener(
+        "click",
+        () => {
+          ryu.addEventListener(
+            "transitionend",
+            () => {
+              ryu.addEventListener(
+                "transitionend",
+                () => {
+                  ryu.addEventListener(
+                    "transitionend",
+                    () => {
+                      shiki.setAttribute(
+                        "style",
+                        "transform: translateX(-700px); transition: transform 1s linear 0s;"
+                      );
+                      ryu.setAttribute(
+                        "style",
+                        "transform: translateX(700px); transition: transform 1s linear 1s;"
+                      );
+                    },
+                    { once: true }
+                  );
+                  shiki.setAttribute(
+                    "style",
+                    "transform: translateY(0px); transition: transform 0.5s linear 0.5s;"
+                  );
+                  ryu.setAttribute(
+                    "style",
+                    "transform: translateY(0px); transition: transform 0.5s linear 0.5s;"
+                  );
+                },
+                { once: true }
+              );
+              shiki.setAttribute(
+                "style",
+                "transform: translateY(-30px); transition: transform 0.5s linear 0s;"
+              );
+              ryu.setAttribute(
+                "style",
+                "transform: translateY(-30px); transition: transform 0.5s linear 0s;"
+              );
+            },
+            { once: true }
+          );
+          shiki.setAttribute(
+            "style",
+            "transform: translateX(0px); transition: transform 1s linear 0s;"
+          );
+          ryu.setAttribute(
+            "style",
+            "transform: translateX(0px); transition: transform 1s linear 1s;"
+          );
+        },
+        { once: true }
+      );
+    </script>
+  </body>
+</html>

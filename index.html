@@ -73,7 +73,17 @@
 
       // buttonを押したらイケメンを登場させる
       apperButton.addEventListener("click", () => {
-        new Promise((resolve, reject) => {
+        asyncAction();
+      });
+      async function asyncAction() {
+        await action1();
+        await action2();
+        await action3();
+        await action4();
+      }
+
+      function action1() {
+        return new Promise((resolve, reject) => {
           ryu.addEventListener(
             "transitionend",
             () => {
@@ -85,43 +95,46 @@
             "style",
             "transform: translateX(0px); transition: transform 1s linear 0s;"
           );
-        })
-          .then(() => {
-            return new Promise((resolve, reject) => {
-              shiki.addEventListener(
-                "animationend",
-                () => {
-                  resolve();
-                },
-                { once: true }
-              );
-              shiki.setAttribute("style", "transform: translateX(0px)");
-              shiki.setAttribute("class", "slide");
-            });
-          })
-          .then(() => {
-            return new Promise((resolve, reject) => {
-              shiki.addEventListener(
-                "animationend",
-                () => {
-                  resolve();
-                },
-                { once: true }
-              );
-              shiki.setAttribute("class", "jump");
-            });
-          })
-          .then(() => {
-            shiki.setAttribute(
-              "style",
-              "transform: translateX(-700px); transition: transform 1s linear 0s;"
-            );
-            ryu.setAttribute(
-              "style",
-              "transform: translateX(700px); transition: transform 1s linear 1s;"
-            );
-          });
-      });
+        });
+      }
+      function action2() {
+        return new Promise((resolve, reject) => {
+          shiki.addEventListener(
+            "animationend",
+            () => {
+              resolve();
+            },
+            { once: true }
+          );
+          shiki.setAttribute("style", "transform: translateX(0px)");
+          shiki.setAttribute("class", "slide");
+        });
+      }
+
+      function action3() {
+        return new Promise((resolve, reject) => {
+          shiki.addEventListener(
+            "animationend",
+            () => {
+              resolve();
+            },
+            { once: true }
+          );
+          shiki.setAttribute("class", "jump");
+        });
+      }
+      function action4() {
+        return new Promise((resolve, reject) => {
+          shiki.setAttribute(
+            "style",
+            "transform: translateX(-700px); transition: transform 1s linear 0s;"
+          );
+          ryu.setAttribute(
+            "style",
+            "transform: translateX(700px); transition: transform 1s linear 1s;"
+          );
+        });
+      }
     </script>
   </body>
 </html>

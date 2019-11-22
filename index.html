@@ -19,8 +19,32 @@
         height: 700px;
       }
       img.jump {
-        transform: translateY(30px);
-        transition: transform 0.5s linear 2s;
+        animation: jumping 1s ease 0s 1;
+      }
+      @keyframes jumping {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-30px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+      img.slide {
+        animation: sliding 2s ease 0s 1;
+      }
+      @keyframes sliding {
+        0% {
+          transform: translateX(-700px);
+        }
+        70% {
+          transform: translateX(200px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
       }
       #shiki {
         position: absolute;
@@ -57,51 +81,34 @@
             },
             { once: true }
           );
-          shiki.setAttribute(
-            "style",
-            "transform: translateX(0px); transition: transform 1s linear 0s;"
-          );
           ryu.setAttribute(
             "style",
-            "transform: translateX(0px); transition: transform 1s linear 1s;"
+            "transform: translateX(0px); transition: transform 1s linear 0s;"
           );
         })
           .then(() => {
             return new Promise((resolve, reject) => {
-              ryu.addEventListener(
-                "transitionend",
+              shiki.addEventListener(
+                "animationend",
                 () => {
                   resolve();
                 },
                 { once: true }
               );
-              shiki.setAttribute(
-                "style",
-                "transform: translateY(-30px); transition: transform 0.5s linear 0s;"
-              );
-              ryu.setAttribute(
-                "style",
-                "transform: translateY(-30px); transition: transform 0.5s linear 0s;"
-              );
+              shiki.setAttribute("style", "transform: translateX(0px)");
+              shiki.setAttribute("class", "slide");
             });
           })
           .then(() => {
             return new Promise((resolve, reject) => {
-              ryu.addEventListener(
-                "transitionend",
+              shiki.addEventListener(
+                "animationend",
                 () => {
                   resolve();
                 },
                 { once: true }
               );
-              shiki.setAttribute(
-                "style",
-                "transform: translateY(0px); transition: transform 0.5s linear 0s;"
-              );
-              ryu.setAttribute(
-                "style",
-                "transform: translateY(0px); transition: transform 0.5s linear 0s;"
-              );
+              shiki.setAttribute("class", "jump");
             });
           })
           .then(() => {
